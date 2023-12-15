@@ -3,6 +3,7 @@ import json
 import requests
 import networkx as nx
 import matplotlib.pyplot as plt
+plt.rcParams['svg.fonttype'] = 'none'
 from itertools import combinations
 from io import BytesIO
 
