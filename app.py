@@ -127,5 +127,7 @@ if json_data:
             mime="image/png"
         )
 
+        st.text("Credit for data: Nextclade - https://nextstrain.org/staging/nextclade/sars-cov-2")
+
 else:
     st.error("Failed to load data from the URL.")
