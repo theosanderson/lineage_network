@@ -2,3 +2,4 @@ streamlit
 networkx
 requests
 matplotlib
+scipy
