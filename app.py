@@ -85,7 +85,7 @@ def draw_graph(mutation_paths, keys, show_edge_labels, mutation_key, file_format
     return buffer
 
 # Streamlit app layout
-st.title('COVID-19 Variant Mutation Network')
+st.title('SARS CoV-2 Variant Mutation Network')
 
 # Toggle for mutation type
 mutation_type = st.radio("Select Mutation Type", ('Nucleotide', 'Spike Protein'), index=1)
