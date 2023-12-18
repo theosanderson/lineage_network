@@ -110,9 +110,9 @@ if json_data:
     
 
     # Toggle for edge labels
-    show_edge_labels = st.checkbox("Show Edge Labels", value=True)
+    show_edge_labels = st.checkbox("Show edge labels", value=True)
 
-    enable_site_display = st.checkbox("List Sites With Variation", value=False)
+    enable_site_display = st.checkbox("List sites with variation", value=False)
 
     
     if keys:
