@@ -29,7 +29,7 @@ def collect_mutation_paths(node, current_path, paths, mutation_key):
             collect_mutation_paths(child, node_path, paths, mutation_key)
 
 # Function to calculate edit distance
-def calculate_edit_distance(str1, str2, mutation_paths):
+def calculate_edit_distance(str1, str2, mutation_paths,debug_print):
     list1 = mutation_paths[str1]
     list2 = mutation_paths[str2]
 
@@ -43,21 +43,25 @@ def calculate_edit_distance(str1, str2, mutation_paths):
     unique_set2 = set2 - set1
 
     processed_set = set([item[:-1] for item in unique_set1.union(unique_set2)])
+    items = sorted([int(item) for item in processed_set])
+    result = len(processed_set)
+    if(debug_print):
+        st.write("Sites with differences between",str1," and ",str2, ":",result, ",".join([str(item) for item in items]))
 
-    return len(processed_set)
+    return result
 
 # Function to calculate all pairwise distances
-def calculate_all_pairwise_distances(keys, mutation_paths):
+def calculate_all_pairwise_distances(keys, mutation_paths,debug_print):
     pairwise_distances = {}
     for pair in combinations(keys, 2):
-        distance = calculate_edit_distance(pair[0], pair[1], mutation_paths)
+        distance = calculate_edit_distance(pair[0], pair[1], mutation_paths, debug_print = debug_print)
         pairwise_distances[pair] = distance
 
     return pairwise_distances
 
 # Function to draw network graph
 def draw_graph(mutation_paths, keys, show_edge_labels, mutation_key, file_format='png'):
-    dists = calculate_all_pairwise_distances(keys, mutation_paths)
+    dists = calculate_all_pairwise_distances(keys, mutation_paths, debug_print = enable_site_display and file_format == 'png')
 
     # If any pairwise distances are 0 raise an error and say what they are
     zero_distances = [pair for pair, distance in dists.items() if distance == 0]
@@ -87,15 +91,11 @@ def draw_graph(mutation_paths, keys, show_edge_labels, mutation_key, file_format
 # Streamlit app layout
 st.title('SARS CoV-2 Variant Mutation Network')
 
-# Toggle for mutation type
-mutation_type = st.radio("Select Mutation Type", ('Nucleotide', 'Spike Protein'), index=1)
-mutation_key = 'nuc' if mutation_type == 'Nucleotide' else 'S'
-
-# Toggle for edge labels
-show_edge_labels = st.checkbox("Show Edge Labels", value=True)
 
 data_url = "https://nextstrain.org/charon/getDataset?prefix=staging/nextclade/sars-cov-2"
 json_data = download_data(data_url)
+mutation_type = st.radio("Select Mutation Type", ('Nucleotide', 'Spike Protein'))
+mutation_key = 'nuc' if mutation_type == 'Nucleotide' else 'S'
 
 if json_data:
     tree_data = json_data['tree']
@@ -103,7 +103,17 @@ if json_data:
     collect_mutation_paths(tree_data, [], mutation_paths, mutation_key)
 
     # Selectable keys for visualization
-    keys = st.multiselect('Select Variants', list(mutation_paths.keys()), default=['ancestral', 'B.1.1.7'])
+    keys = st.multiselect('Select Variants', list(mutation_paths.keys()), default=['ancestral', 'B.1.1.7','XBB'])
+
+    # Toggle for mutation type
+    
+    
+
+    # Toggle for edge labels
+    show_edge_labels = st.checkbox("Show Edge Labels", value=True)
+
+    enable_site_display = st.checkbox("List Sites With Variation", value=False)
+
     
     if keys:
 
