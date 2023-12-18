@@ -20,8 +20,23 @@ def collect_mutation_paths(node, current_path, paths, mutation_key):
     node_path = current_path.copy()
     if 'branch_attrs' in node and 'mutations' in node['branch_attrs']:
         node_mutations = node['branch_attrs']['mutations'].get(mutation_key, [])
-        node_path.extend(node_mutations)
+    else:
+        node_mutations = []
+        
+        
+    # remove any sites that are already there
+    new_node_path = []
+    node_poses = [item[1:-1] for item in node_mutations]
+    for item in node_path:
+      
+        item_number = item[1:-1]
+        
+        if item_number not in node_poses:
 
+            new_node_path.append(item)
+  
+    node_path = new_node_path
+    node_path.extend(node_mutations)
     paths[node['name']] = node_path
 
     if 'children' in node:
