@@ -77,6 +77,7 @@ def optimize_layout(dists, num_iterations=100):
         
         if correlation > best_correlation:
             print(f"New best correlation: {correlation}")
+            st.write(f"New best correlation: {correlation}")
             best_correlation = correlation
             best_layout = pos
             best_graph = G
