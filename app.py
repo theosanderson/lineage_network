@@ -217,7 +217,9 @@ if json_data:
     collect_mutation_paths(tree_data, [], mutation_paths, mutation_key)
 
     # Selectable keys for visualization
-    keys = st.multiselect('Select Variants', list(mutation_paths.keys()), default=['ancestral', 'B.1.1.7','XBB'])
+    keys = st.multiselect('Select Variants', list(mutation_paths.keys()), default=['ancestral', 'B.1.1.7','BA.1','B.1.617.2','BA.2','BA.5', 'XBB', 'BA.2.86']
+                          
+                          )
 
     # Toggle for mutation type
     
