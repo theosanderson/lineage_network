@@ -173,6 +173,8 @@ def draw_graph(pos, G, keys, show_edge_labels, mutation_key, file_format='png'):
     #plt.axis('off')
     plt.gca().set_aspect('equal')
     plt.gca().set_axis_off()
+    plt.margins(0, 0)
+
     # tight layout
   
 
@@ -190,6 +192,7 @@ def draw_graph(pos, G, keys, show_edge_labels, mutation_key, file_format='png'):
 
     # Draw edges
     nx.draw_networkx_edges(G, pos, width=1.0, alpha=0.5)
+
 
 
 
