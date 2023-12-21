@@ -25,10 +25,7 @@ def get_graph_layout(dists):
     for pair, distance in dists.items():
         G.add_edge(pair[0], pair[1], weight=distance)
     
-    # create random initial positions for the nodes
-    
-    initial_pos = nx.random_layout(G)
-
+  
     pos = get_custom_layout2(G, iterations=30)
     return pos, G
 
