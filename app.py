@@ -75,7 +75,7 @@ def optimize_layout(dists, num_iterations=100):
 
         # Calculate the correlation between graph distances and layout distances
         correlation , _ , _= calculate_correlation(G, pos)
-        my_bar.progress((x+1)/num_iterations, text=f"Best correlation: {best_correlation:.2f}")
+        
         
         
         if correlation > best_correlation:
@@ -84,6 +84,7 @@ def optimize_layout(dists, num_iterations=100):
             best_correlation = correlation
             best_layout = pos
             best_graph = G
+        my_bar.progress((x+1)/num_iterations, text=f"Best correlation: {best_correlation:.2f}")
 
     return best_layout, best_graph
 
