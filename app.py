@@ -29,7 +29,7 @@ def get_graph_layout(dists):
     
     initial_pos = nx.random_layout(G)
 
-    pos = get_custom_layout2(G, iterations=100)
+    pos = get_custom_layout2(G, iterations=30)
     return pos, G
 
 
