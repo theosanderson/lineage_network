@@ -81,7 +81,7 @@ def optimize_layout(dists, num_iterations=100):
             best_correlation = correlation
             best_layout = pos
             best_graph = G
-        my_bar.progress((x+1)/num_iterations, text=f"Best correlation: {best_correlation:.2f}")
+        my_bar.progress((x+1)/num_iterations, text=f"Best correlation: {best_correlation:.4f}")
 
     return best_layout, best_graph
 
@@ -256,7 +256,7 @@ if json_data:
         ax.scatter(graph_distances, layout_distances)
         ax.set_xlabel('True distance')
         ax.set_ylabel('Plotted distance')
-        ax.set_title(f'Correlation of distances: {correlation:.2f}')
+        ax.set_title(f'Correlation of distances: {correlation:.4f}')
         # save to buffer 
         buffer = BytesIO()
         fig.savefig(buffer, format='png')
